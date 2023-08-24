@@ -1,44 +1,35 @@
-def criar_aluno(conexao, nome, idade):
-    novo_aluno = conexao.execute("INSERT INTO aluno (nome, idade) values (?, ?)", (nome, idade))
-    conexao.commit()
-    print(f"ALuno {nome} cadastrado")
-    return novo_aluno
+import sqlite3
 
-def listar_alunos(conexao):
-    valores = conexao.execute("SELECT * FROM aluno").fetchall()
+conexao = sqlite3.connect("aula.db")
+conexao.execute(''' CREATE TABLE IF NOT EXISTS aluno
+                (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                nome TEXT NOT NULL,
+                idade INT NUT NULL);''')
+conexao.commit()
+
+def criar_aluno(nome, idade):
+    conexao.execute("INSERT INTO aluno (nome, idade) values (?, ?)", (nome, idade))
     conexao.commit()
-    print(valores)
-    for aluno in valores:
+    print("Aluno inserido com sucesso")
+
+def listar_alunos():
+    lista_alunos = conexao.execute("SELECT * FROM aluno")    
+    for aluno in lista_alunos:
         print(aluno)
-    return valores
 
-def atualizar_aluno(conexao, id, **kwargs):
+def atualizar_aluno(id, **kwargs):
     for parametro, valor in kwargs.items():
-        aluno_atualizado = conexao.execute("UPDATE aluno SET " + parametro + " = ? WHERE id = ?", (valor, id))
+        conexao.execute("UPDATE aluno SET " + parametro + " = ? WHERE id = ?", (valor, id))
         conexao.commit()
-    print(f"Aluno de id {id} atualizado")
-    return aluno_atualizado
+    print(f"Aluno de id {id} atualizado com sucesso")
+    
+def deletar_aluno(id):
+    conexao.execute("DELETE FROM aluno WHERE id = ?", (id,))
+    conexao.commit()
+    print(f"Aluno de id {id} excluido com sucesso")
 
-
-def deletar_aluno(conexao, id):
-    aluno_deletado = conexao.execute("DELETE FROM aluno WHERE id = ?", (id,))
-    return aluno_deletado
-
-
-if __name__ == '__main__':
-    import sqlite3
-    conexao = sqlite3.connect("aluno.db")
-    conexao.execute('''CREATE TABLE IF NOT EXISTS aluno
-                    (id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    nome TEXT NOT NULL,
-                    idade INT NOT NULL)''')
-    #criar_aluno(conexao, "Bartolomeu", 4)
-    #criar_aluno(conexao, "Tartaruga", 5)
-
-    criar_aluno(conexao, "Beltrano", 100)
-
-    atualizar_aluno(conexao, 4, nome="Fulano")
-    print(atualizar_aluno(conexao, 4, idade=80))
-
-    deletar_aluno(conexao, 5)
-    listar_alunos(conexao)
+#criar_aluno("Beltrano", 40)
+atualizar_aluno(1, nome="Adelaidezinha", idade=10)
+atualizar_aluno(1, idade=20)
+deletar_aluno(2)
+listar_alunos()

@@ -24,6 +24,6 @@ class Teste_Treino(unittest.TestCase):
     def test_listaRegistro(self):
         criarRegistro(self.conn, 'Adelaide', 10, 'Tigrada')
         criarRegistro(self.conn, 'Xuxinha', 1, 'Preta')
-        self.saida = listaRegistro().fetchall()
+        self.saida = listaRegistro(self.conn)
         self.esperado = 2
         self.assertEqual(self.esperado, len(self.saida))

@@ -1,6 +1,6 @@
 import unittest
 import sqlite3
-from Aula_DB import criar_aluno, listar_alunos, atualizar_aluno, deletar_aluno
+from Aula_DB_1  import criar_aluno, listar_alunos, atualizar_aluno, deletar_aluno
 
 class Teste_Crud(unittest.TestCase):
     def setUp(self):
