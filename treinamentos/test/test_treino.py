@@ -9,13 +9,13 @@ class Teste_Treino(unittest.TestCase):
                 (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                 nome TEXT NOT NULL,
                 idade INTEGER NOT NULL,
-                cor TEXT NOT NULL fdsfdsfsdf)''')
+                cor TEXT NOT NULL)''')
         self.conn.commit()
 
     def tearDown(self):
         self.conn.close()
 
-    def test_criaRegistro(self):
+    def test_cria_registro(self):
         print("Aqui")
         criarRegistro(self.conn, 'Adelaide', 10, 'Tigrada')
         criarRegistro(self.conn, 'Xuxinha', 1, 'Preta')
@@ -23,5 +23,7 @@ class Teste_Treino(unittest.TestCase):
         self.esperado = 2
         self.assertEqual(self.esperado, len(self.saida))
 
+if __name__ == '__main__':
+    unittest.main()
         
 
