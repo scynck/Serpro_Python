@@ -1,0 +1,1 @@
+'''Este arquivo é somente para se aprender os comandos git'''

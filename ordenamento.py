@@ -25,7 +25,7 @@ class Ordenar():
                 j = j - 1
             if (i<=j):
                 aux = entrada[i]
-                entrada[i] = entrada [j]
+                entrada[i] = entrada[j]
                 entrada[j] = aux
                 i = i + 1
                 j = j - 1
